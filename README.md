@@ -51,7 +51,11 @@ taguée suffit.
 | `openAppDatabase`, `AppPrefs` | Base SQLite locale (drift) et petits réglages. Rien ne quitte l'appareil. |
 | `PdfFonts`, `a4Document`, `pdfAmountRow`, `pdfLabel` | Helpers PDF A4 avec polices embarquées. |
 | `ShareService` | Partage (e-mail, WhatsApp…) et enregistrement de PDF. |
-| `NotificationService` | Rappels locaux programmés. |
+| `NotificationService` | Rappels locaux programmés, notifications immédiates, boutons d'action traités en arrière-plan. |
+| `RemoteJsonConfig` | Règles chiffrées hébergées (JSON), avec cache et repli sur les valeurs embarquées hors ligne. |
+| `toCsv`, `csvBytes`, `ShareService.shareFile` | Export CSV lisible par Excel. |
+| `HomeWidgetService` | Données du widget d'écran d'accueil (`home_widget`) ; le dessin natif reste dans l'appli. |
+| `a4MultiPageDocument` | PDF A4 sur plusieurs pages (relevés longs). |
 | `amountInWordsFr`, `formatEuros`, `parseEurosToCents`, dates FR | Utilitaires en français. |
 | `LabeledField`, `AppCard`, `SegmentedChoice`, `StatusChip`, `SignatureField`… | Widgets communs. |
 
@@ -91,6 +95,16 @@ Configuration native requise dans chaque appli :
   `web/`.
 
 L'appli Quittances sert d'exemple complet.
+
+## Configurations distantes (`remote/`)
+
+Le dépôt étant public, le dossier `remote/` sert les règles chiffrées des
+applis, lues par `RemoteJsonConfig` à l'adresse
+`https://raw.githubusercontent.com/ef-sketch57/app_core/main/remote/<appli>/rules.json`.
+Modifier un de ces fichiers sur `main` change les règles de l'appli sans la
+republier (prise en compte au lancement suivant). Le fichier doit rester un
+JSON valide et complet : sinon l'appli l'ignore et garde la version
+précédente.
 
 ## Règles de modification
 

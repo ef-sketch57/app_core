@@ -29,6 +29,25 @@ class ShareService {
     return result.status != ShareResultStatus.dismissed;
   }
 
+  /// Partage un fichier quelconque (CSV…) ; sur le web, le télécharge.
+  /// Renvoie `false` si l'utilisateur a fermé la feuille sans rien choisir.
+  Future<bool> shareFile({
+    required Uint8List bytes,
+    required String fileName,
+    required String mimeType,
+    String? subject,
+    Rect? origin,
+  }) async {
+    final result = await SharePlus.instance.share(ShareParams(
+      files: [XFile.fromData(bytes, mimeType: mimeType, name: fileName)],
+      fileNameOverrides: [fileName],
+      subject: subject,
+      sharePositionOrigin: origin,
+      downloadFallbackEnabled: true,
+    ));
+    return result.status != ShareResultStatus.dismissed;
+  }
+
   /// Ouvre la boîte d'impression du système, qui propose « Enregistrer en
   /// PDF » (Android, iOS) ; sur le web, télécharge le fichier.
   Future<void> savePdf({required Uint8List bytes, required String fileName}) async {

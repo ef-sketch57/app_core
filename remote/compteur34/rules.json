@@ -1,0 +1,14 @@
+{
+  "verified_on": "2026-10-30",
+  "countries": {
+    "FR": { "fiscal_days": 34, "fiscal_period": "calendar_year" },
+    "BE": { "fiscal_days": 34, "fiscal_period": "calendar_year" },
+    "DE": { "fiscal_days": 34, "fiscal_period": "calendar_year", "to_verify": true }
+  },
+  "social_security": {
+    "default_threshold_pct": 25,
+    "framework_agreement_threshold_pct": 49,
+    "period": "calendar_year"
+  },
+  "alert_days_before_threshold": 5
+}

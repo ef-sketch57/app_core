@@ -94,6 +94,38 @@ pw.Document a4Document({
   return doc;
 }
 
+/// Document A4 sur plusieurs pages (longs tableaux), avec pied de page
+/// « page X / Y » facultatif.
+pw.Document a4MultiPageDocument({
+  required PdfFonts fonts,
+  required String title,
+  required String author,
+  required List<pw.Widget> Function(pw.Context) build,
+  String? footerText,
+}) {
+  final doc = pw.Document(title: title, author: author, creator: author);
+  doc.addPage(
+    pw.MultiPage(
+      pageTheme: pw.PageTheme(
+        pageFormat: PdfPageFormat.a4,
+        margin: const pw.EdgeInsets.symmetric(horizontal: 48, vertical: 44),
+        theme: fonts.theme,
+      ),
+      crossAxisAlignment: pw.CrossAxisAlignment.stretch,
+      footer: (ctx) => pw.Row(children: [
+        pw.Expanded(
+          child: pw.Text(footerText ?? '',
+              style: const pw.TextStyle(fontSize: 8, color: PdfColorsKit.muted)),
+        ),
+        pw.Text('${ctx.pageNumber} / ${ctx.pagesCount}',
+            style: const pw.TextStyle(fontSize: 8, color: PdfColorsKit.muted)),
+      ]),
+      build: build,
+    ),
+  );
+  return doc;
+}
+
 /// Ligne « libellé … montant » d'un tableau de sommes.
 pw.Widget pdfAmountRow(String label, String amount,
     {bool bold = false, bool last = false}) {

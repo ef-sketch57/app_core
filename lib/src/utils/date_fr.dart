@@ -7,6 +7,17 @@ const _months = [
   'septembre', 'octobre', 'novembre', 'décembre',
 ];
 
+const _weekdays = [
+  'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche', //
+];
+
+/// « vendredi » pour [DateTime.friday].
+String weekdayNameFr(int weekday) => _weekdays[weekday - 1];
+
+/// « vendredi 30 octobre », « mardi 1er décembre »
+String formatWeekdayDateFr(DateTime d) =>
+    '${weekdayNameFr(d.weekday)} ${dayFr(d.day)} ${monthNameFr(d.month)}';
+
 /// « octobre »
 String monthNameFr(int month) => _months[month - 1];
 

@@ -8,20 +8,53 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../config/app_config.dart';
 
+/// Bouton d'action affiché dans une notification.
+class NotificationActionSpec {
+  const NotificationActionSpec(this.id, this.label);
+
+  /// Identifiant renvoyé dans [NotificationResponse.actionId].
+  final String id;
+  final String label;
+}
+
+/// Groupe de boutons (« catégorie » iOS) déclaré à l'initialisation.
+class NotificationCategorySpec {
+  const NotificationCategorySpec(this.id, this.actions);
+
+  final String id;
+  final List<NotificationActionSpec> actions;
+}
+
 /// Rappels locaux programmés sur l'appareil (aucun serveur).
 class NotificationService {
-  NotificationService({this.timeZone = 'Europe/Paris'});
+  NotificationService({
+    this.timeZone = 'Europe/Paris',
+    this.categories = const [],
+    this.onBackgroundResponse,
+  });
 
   /// Fuseau des rappels. Les applis de la série ciblent la France et le
   /// Luxembourg, qui partagent le même fuseau.
   final String timeZone;
 
+  /// Groupes de boutons d'action utilisables dans [schedule] et [show].
+  final List<NotificationCategorySpec> categories;
+
+  /// Appelé dans un isolat d'arrière-plan quand l'utilisateur touche un
+  /// bouton d'action, sans ouvrir l'appli. Doit être une fonction de premier
+  /// niveau annotée `@pragma('vm:entry-point')`.
+  final DidReceiveBackgroundNotificationResponseCallback? onBackgroundResponse;
+
   final _plugin = FlutterLocalNotificationsPlugin();
   final _taps = StreamController<String>.broadcast();
+  final _responses = StreamController<NotificationResponse>.broadcast();
   bool _ready = false;
 
   /// Charge utile des notifications touchées par l'utilisateur.
   Stream<String> get taps => _taps.stream;
+
+  /// Toutes les réponses reçues appli ouverte (notification ou bouton).
+  Stream<NotificationResponse> get responses => _responses.stream;
 
   bool get supported => AppConfig.mobileServicesAvailable;
 
@@ -30,17 +63,26 @@ class NotificationService {
     tzdata.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation(timeZone));
     await _plugin.initialize(
-      settings: const InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      settings: InitializationSettings(
+        android: const AndroidInitializationSettings('@mipmap/ic_launcher'),
         iOS: DarwinInitializationSettings(
           requestAlertPermission: false,
           requestBadgePermission: false,
           requestSoundPermission: false,
+          notificationCategories: [
+            for (final c in categories)
+              DarwinNotificationCategory(c.id, actions: [
+                for (final a in c.actions)
+                  DarwinNotificationAction.plain(a.id, a.label),
+              ]),
+          ],
         ),
       ),
       onDidReceiveNotificationResponse: (r) {
-        if (r.payload != null) _taps.add(r.payload!);
+        _responses.add(r);
+        if (r.actionId == null && r.payload != null) _taps.add(r.payload!);
       },
+      onDidReceiveBackgroundNotificationResponse: onBackgroundResponse,
     );
     _ready = true;
   }
@@ -83,6 +125,7 @@ class NotificationService {
     String? payload,
     String channelId = 'reminders',
     String channelName = 'Rappels',
+    String? categoryId,
   }) async {
     if (!supported) return;
     await init();
@@ -96,11 +139,56 @@ class NotificationService {
       body: body,
       payload: payload,
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-      notificationDetails: NotificationDetails(
-        android: AndroidNotificationDetails(channelId, channelName,
-            importance: Importance.high, priority: Priority.high),
-        iOS: const DarwinNotificationDetails(),
+      notificationDetails: _details(channelId, channelName, categoryId),
+    );
+  }
+
+  /// Affiche une notification immédiatement (alerte).
+  Future<void> show({
+    required int id,
+    required String title,
+    required String body,
+    String? payload,
+    String channelId = 'alerts',
+    String channelName = 'Alertes',
+    String? categoryId,
+  }) async {
+    if (!supported) return;
+    await init();
+    await _plugin.show(
+      id: id,
+      title: title,
+      body: body,
+      payload: payload,
+      notificationDetails: _details(channelId, channelName, categoryId),
+    );
+  }
+
+  /// Identifiants des notifications programmées et pas encore affichées.
+  Future<Set<int>> pendingIds() async {
+    if (!supported) return {};
+    await init();
+    final pending = await _plugin.pendingNotificationRequests();
+    return {for (final p in pending) p.id};
+  }
+
+  NotificationDetails _details(
+      String channelId, String channelName, String? categoryId) {
+    final category = categoryId == null
+        ? null
+        : categories.firstWhere((c) => c.id == categoryId);
+    return NotificationDetails(
+      android: AndroidNotificationDetails(
+        channelId,
+        channelName,
+        importance: Importance.high,
+        priority: Priority.high,
+        actions: [
+          for (final a in category?.actions ?? const <NotificationActionSpec>[])
+            AndroidNotificationAction(a.id, a.label),
+        ],
       ),
+      iOS: DarwinNotificationDetails(categoryIdentifier: categoryId),
     );
   }
 
