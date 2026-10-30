@@ -3,7 +3,10 @@
 library;
 
 export 'package:flutter_local_notifications/flutter_local_notifications.dart'
-    show NotificationResponse, DidReceiveBackgroundNotificationResponseCallback;
+    show
+        DidReceiveBackgroundNotificationResponseCallback,
+        NotificationResponse,
+        NotificationResponseType;
 
 export 'src/ads/adaptive_banner.dart';
 export 'src/ads/ads_service.dart';
