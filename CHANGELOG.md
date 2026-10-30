@@ -14,6 +14,8 @@ Ajouts, sans changement de l'API existante :
   `ShareService.shareFile()` pour partager un fichier quelconque.
 - `HomeWidgetService` : données du widget d'écran d'accueil (`home_widget`).
 - `a4MultiPageDocument` : PDF A4 sur plusieurs pages avec pied de page.
+- `openAppDatabase(…, shareAcrossIsolates: true)` : base partagée avec les
+  isolats d'arrière-plan.
 - `weekdayNameFr`, `formatWeekdayDateFr`.
 - `remote/` : fichiers de configuration distants des applis
   (`remote/compteur34/rules.json`).
