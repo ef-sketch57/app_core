@@ -1,14 +1,109 @@
 {
   "verified_on": "2026-10-30",
   "countries": {
-    "FR": { "fiscal_days": 34, "fiscal_period": "calendar_year" },
-    "BE": { "fiscal_days": 34, "fiscal_period": "calendar_year" },
-    "DE": { "fiscal_days": 34, "fiscal_period": "calendar_year", "to_verify": true }
+    "FR": {
+      "fiscal_days": 34,
+      "fiscal_period": "calendar_year"
+    },
+    "BE": {
+      "fiscal_days": 34,
+      "fiscal_period": "calendar_year"
+    },
+    "DE": {
+      "fiscal_days": 34,
+      "fiscal_period": "calendar_year",
+      "to_verify": true
+    }
   },
   "social_security": {
     "default_threshold_pct": 25,
     "framework_agreement_threshold_pct": 49,
     "period": "calendar_year"
   },
-  "alert_days_before_threshold": 5
+  "alert_days_before_threshold": 5,
+  "guidance": {
+    "fiscal": {
+      "FR": [
+        {
+          "title": "Gardez votre relevé jour par jour",
+          "body": "Exportez le relevé PDF de l'année : il prouve le nombre et la date de vos jours hors du Luxembourg. Conservez aussi vos justificatifs (ordres de mission, accords de télétravail)."
+        },
+        {
+          "title": "Prévenez votre employeur",
+          "body": "Signalez-lui le dépassement. Il pourra indiquer la part de salaire correspondant aux jours travaillés hors du Luxembourg et, si besoin, adapter la retenue d'impôt luxembourgeoise."
+        },
+        {
+          "title": "Déclarez ces revenus en France",
+          "body": "Dans votre déclaration de revenus, déclarez la part de salaire correspondant à tous vos jours travaillés hors du Luxembourg cette année (télétravail et missions, en France ou dans un pays tiers), dès le premier jour. Votre centre des finances publiques peut vous aider."
+        },
+        {
+          "title": "Demandez la régularisation au Luxembourg",
+          "body": "L'impôt luxembourgeois retenu sur ces jours n'est plus dû au Luxembourg. Pour éviter de payer deux fois, demandez un décompte annuel ou déposez une déclaration auprès de l'Administration des contributions directes (ACD)."
+        },
+        {
+          "title": "Faites-vous accompagner",
+          "body": "Les montants dépendent de votre situation. En cas de doute, contactez votre service des impôts des particuliers ou un conseiller fiscal spécialisé dans les frontaliers."
+        }
+      ],
+      "BE": [
+        {
+          "title": "Gardez votre relevé jour par jour",
+          "body": "Exportez le relevé PDF de l'année : il prouve le nombre et la date de vos jours hors du Luxembourg. Conservez aussi vos justificatifs (ordres de mission, accords de télétravail)."
+        },
+        {
+          "title": "Prévenez votre employeur",
+          "body": "Signalez-lui le dépassement. Il pourra indiquer la part de salaire correspondant aux jours travaillés hors du Luxembourg et, si besoin, adapter la retenue d'impôt luxembourgeoise."
+        },
+        {
+          "title": "Déclarez ces revenus en Belgique",
+          "body": "Dans votre déclaration à l'impôt des personnes physiques (SPF Finances), déclarez la part de salaire correspondant à tous vos jours travaillés hors du Luxembourg cette année, dès le premier jour."
+        },
+        {
+          "title": "Demandez la régularisation au Luxembourg",
+          "body": "L'impôt luxembourgeois retenu sur ces jours n'est plus dû au Luxembourg. Pour éviter de payer deux fois, demandez un décompte annuel ou déposez une déclaration auprès de l'Administration des contributions directes (ACD)."
+        },
+        {
+          "title": "Faites-vous accompagner",
+          "body": "Les montants dépendent de votre situation. En cas de doute, contactez le SPF Finances ou un conseiller fiscal spécialisé dans les frontaliers."
+        }
+      ],
+      "DE": [
+        {
+          "title": "Gardez votre relevé jour par jour",
+          "body": "Exportez le relevé PDF de l'année : il prouve le nombre et la date de vos jours hors du Luxembourg. Conservez aussi vos justificatifs (ordres de mission, accords de télétravail)."
+        },
+        {
+          "title": "Prévenez votre employeur",
+          "body": "Signalez-lui le dépassement. Il pourra indiquer la part de salaire correspondant aux jours travaillés hors du Luxembourg et, si besoin, adapter la retenue d'impôt luxembourgeoise."
+        },
+        {
+          "title": "Déclarez ces revenus en Allemagne",
+          "body": "Dans votre déclaration d'impôt sur le revenu (Einkommensteuererklärung, auprès du Finanzamt), déclarez la part de salaire correspondant à tous vos jours travaillés hors du Luxembourg cette année, dès le premier jour."
+        },
+        {
+          "title": "Demandez la régularisation au Luxembourg",
+          "body": "L'impôt luxembourgeois retenu sur ces jours n'est plus dû au Luxembourg. Pour éviter de payer deux fois, demandez un décompte annuel ou déposez une déclaration auprès de l'Administration des contributions directes (ACD)."
+        },
+        {
+          "title": "Faites-vous accompagner",
+          "body": "Les montants dépendent de votre situation. En cas de doute, contactez votre Finanzamt ou un conseiller fiscal (Steuerberater) spécialisé dans les frontaliers."
+        }
+      ]
+    },
+    "social": [
+      {
+        "title": "Parlez-en à votre employeur",
+        "body": "Au-delà du seuil, votre affiliation peut passer dans votre pays de résidence, avec des cotisations souvent différentes. C'est votre employeur qui demande le certificat A1, qui fixe le pays où vous êtes assuré."
+      },
+      {
+        "title": "Vérifiez l'accord-cadre télétravail",
+        "body": "Si votre employeur a signé l'accord-cadre et que vous ne travaillez dans votre pays de résidence qu'en télétravail, le seuil est de 49 %. Il doit en faire la demande auprès du Centre commun de la sécurité sociale (CCSS)."
+      },
+      {
+        "title": "Contactez le CCSS",
+        "body": "Le Centre commun de la sécurité sociale (CCSS) au Luxembourg peut vous dire quel pays est compétent pour votre situation et les démarches à prévoir."
+      }
+    ],
+    "disclaimer": "Ces informations sont générales et ne remplacent pas un conseil fiscal ou juridique. Les règles peuvent évoluer : vérifiez votre situation auprès des administrations concernées."
+  }
 }
