@@ -1,6 +1,6 @@
 name: app_core
 description: "Socle commun des applis : thème, pubs, consentement, achat Pro, stockage, PDF, partage, notifications."
-version: 0.1.0
+version: 0.1.1
 publish_to: none
 repository: https://github.com/ef-sketch57/app_core
 

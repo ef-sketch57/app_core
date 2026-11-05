@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- `SignatureField` : la zone reste en mode dessin après le premier trait,
+  pour les signatures en plusieurs traits (auparavant, seul le premier
+  trait était conservé).
+
 ## 0.1.0
 
 Première version : thème Material 3 paramétré (Manrope embarquée),

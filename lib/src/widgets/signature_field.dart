@@ -39,6 +39,11 @@ class _SignatureFieldState extends State<SignatureField> {
       penColor: const Color(0xFF1F3A7A),
       strokeCap: StrokeCap.round,
       strokeJoin: StrokeJoin.round,
+      // Dès le premier trait, on reste en mode dessin : une signature se
+      // fait souvent en plusieurs traits.
+      onDrawStart: () {
+        if (!_editing) setState(() => _editing = true);
+      },
       onDrawEnd: _export,
     );
   }
