@@ -51,5 +51,4 @@ installée. La désinstaller efface toutes ses données.
 
 ## Contact
 
-Pour toute question, écrivez à l'adresse de contact indiquée sur la fiche
-Google Play de l'application.
+Pour toute question : nsoftstudio0@gmail.com
