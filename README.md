@@ -117,3 +117,12 @@ flutter test
 
 La police Manrope est distribuée sous licence SIL Open Font License
 (`assets/fonts/OFL.txt`).
+
+## Pages légales des applis
+
+Le dossier `legal/` héberge les politiques de confidentialité des applis,
+pour leur donner une adresse publique exigée par Google Play et AdMob
+(les dépôts des applis sont privés). Ces fichiers ne font pas partie du
+package Dart et ne demandent pas de nouvelle version.
+
+- Quittances : `legal/quittances/confidentialite.md`
